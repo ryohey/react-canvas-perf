@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { DivRenderer } from "./renderers/div"
 import { generateItems, Item, updateItem } from "./data/data"
 import { FpsView } from "react-fps"
+import { ItemRendererProps } from "./renderers/renderer"
 
 function App() {
   const [items, setItems] = useState<Item[]>(generateItems(1000))
@@ -11,9 +12,16 @@ function App() {
     return () => clearTimeout(timeoutId)
   }, [items])
 
+  const props: ItemRendererProps = {
+    width: 320,
+    height: 320,
+    items,
+    onClick: () => {},
+  }
+
   return (
     <div className="App">
-      <DivRenderer items={items} onClick={() => {}} />
+      <DivRenderer {...props} />
       <FpsView />
     </div>
   )

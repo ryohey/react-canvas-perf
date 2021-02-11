@@ -30,5 +30,5 @@ export const generateItems = (count: number): Item[] =>
     position: Points.random(Math.random() * 300),
     direction: Points.random(1),
     frame: 0,
-    turnInterval: Math.random() * 1000,
+    turnInterval: 100 + Math.random() * 1000,
   }))

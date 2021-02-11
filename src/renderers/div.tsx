@@ -1,11 +1,23 @@
-import { FC, useCallback } from "react"
 import { Points } from "../data/types"
 import { ItemRenderer } from "./renderer"
 import image from "../iconmonstr-car-1-64.png"
 
-export const DivRenderer: ItemRenderer = ({ items, onClick }) => {
+export const DivRenderer: ItemRenderer = ({
+  items,
+  width,
+  height,
+  onClick,
+}) => {
   return (
-    <div>
+    <div
+      style={{
+        position: "relative",
+        userSelect: "none",
+        width,
+        height,
+        overflow: "hidden",
+      }}
+    >
       {items.map((item) => (
         <div
           key={item.id}
@@ -17,7 +29,7 @@ export const DivRenderer: ItemRenderer = ({ items, onClick }) => {
           }}
           onClick={() => onClick(item)}
         >
-          <img src={image} width="30" />
+          <img src={image} width="30" draggable={false} />
           <div>{item.id}</div>
         </div>
       ))}
