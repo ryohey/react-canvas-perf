@@ -27,8 +27,8 @@ export const updateItem = (item: Item) => {
 export const generateItems = (count: number): Item[] =>
   range(count).map((i) => ({
     id: i.toString(),
-    position: Points.random(Math.random() * 300),
+    position: { x: Math.random() * 300, y: Math.random() * 300 },
     direction: Points.random(1),
     frame: 0,
-    turnInterval: 100 + Math.random() * 1000,
+    turnInterval: 10 + Math.random() * 500,
   }))

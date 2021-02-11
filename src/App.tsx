@@ -7,6 +7,8 @@ import { PixiRenderer } from "./renderers/PixiRenderer"
 import { Path, Route, Router } from "./Router"
 import "./App.css"
 import { PixiFiberRenderer } from "./renderers/PixiFiberRenderer"
+import { KonvaRenderer } from "./renderers/KonvaRenderer"
+import { SVGRenderer } from "./renderers/SVGRenderer"
 
 function App() {
   const [items, setItems] = useState<Item[]>([])
@@ -25,8 +27,8 @@ function App() {
   }, [items])
 
   const props: ItemRendererProps = {
-    width: 320,
-    height: 320,
+    width: 1000,
+    height: 1000,
     items,
     hideText,
     onClick: (item) =>
@@ -45,6 +47,8 @@ function App() {
           <option value={Path.div}>Div Renderer</option>
           <option value={Path.pixi}>@inlet/react-pixi</option>
           <option value={Path.pixiFiber}>react-pixi-fiber</option>
+          <option value={Path.konva}>react-konva</option>
+          <option value={Path.svg}>SVG</option>
         </select>
         <select
           value={count}
@@ -56,7 +60,7 @@ function App() {
             </option>
           ))}
         </select>
-        <button onClick={() => setCount(count)}>Reset</button>
+        <button onClick={() => setItems(generateItems(count))}>Reset</button>
         <label>
           <input
             type="checkbox"
@@ -80,6 +84,12 @@ function App() {
         </Route>
         <Route path={Path.pixiFiber}>
           <PixiFiberRenderer {...props} />
+        </Route>
+        <Route path={Path.konva}>
+          <KonvaRenderer {...props} />
+        </Route>
+        <Route path={Path.svg}>
+          <SVGRenderer {...props} />
         </Route>
       </Router>
       <div className="log">{log}</div>

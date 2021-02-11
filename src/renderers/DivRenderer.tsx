@@ -1,6 +1,6 @@
 import { Points } from "../data/types"
 import { ItemProps, ItemRenderer } from "./renderer"
-import image from "../car.png"
+import image from "../item.png"
 import { Item } from "../data/data"
 import { FC, useCallback } from "react"
 
@@ -11,7 +11,7 @@ const DivItem: FC<ItemProps> = ({ item, onClick, hideText }) => {
         position: "absolute",
         left: item.position.x,
         top: item.position.y,
-        transform: `rotate(${Points.angle(item.direction)}rad)`,
+        transform: `rotate(${Points.rotation(item.direction)}rad)`,
       }}
       onClick={useCallback(() => onClick(item), [item])}
     >

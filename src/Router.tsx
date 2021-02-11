@@ -5,6 +5,8 @@ export enum Path {
   div,
   pixi,
   pixiFiber,
+  konva,
+  svg,
 }
 
 const RouterContext = createContext<Path>(Path.index)

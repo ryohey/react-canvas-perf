@@ -13,5 +13,6 @@ export const Points = {
       y: length * Math.sin(theta),
     }
   },
-  angle: (a: IPoint) => Math.atan2(a.y, a.x),
+  rotation: (a: IPoint) => Math.atan2(a.y, a.x),
+  angle: (a: IPoint) => (Math.atan2(a.y, a.x) / 2 / Math.PI) * 360,
 }
