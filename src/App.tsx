@@ -9,6 +9,21 @@ import "./App.css"
 import { PixiFiberRenderer } from "./renderers/PixiFiberRenderer"
 import { KonvaRenderer } from "./renderers/KonvaRenderer"
 import { SVGRenderer } from "./renderers/SVGRenderer"
+import { VanillaPixiRenderer } from "./renderers/VanillaPixiRenderer"
+
+const useAnimationFrame = (fn: () => void, deps: any[]) => {
+  useEffect(() => {
+    let handler: number
+
+    const onFrame = () => {
+      fn()
+      handler = requestAnimationFrame(onFrame)
+    }
+
+    handler = requestAnimationFrame(onFrame)
+    return () => cancelAnimationFrame(handler)
+  }, deps)
+}
 
 function App() {
   const [items, setItems] = useState<Item[]>([])
@@ -21,10 +36,9 @@ function App() {
     setItems(generateItems(count))
   }, [path, count])
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => setItems(items.map(updateItem)), 30)
-    return () => clearTimeout(timeoutId)
-  }, [items])
+  useAnimationFrame(() => {
+    setItems((items) => items.map(updateItem))
+  }, [setItems])
 
   const props: ItemRendererProps = {
     width: 1000,
@@ -49,6 +63,7 @@ function App() {
           <option value={Path.pixiFiber}>react-pixi-fiber</option>
           <option value={Path.konva}>react-konva</option>
           <option value={Path.svg}>SVG</option>
+          <option value={Path.pixiVanilla}>pixi.js (Vanilla)</option>
         </select>
         <select
           value={count}
@@ -90,6 +105,9 @@ function App() {
         </Route>
         <Route path={Path.svg}>
           <SVGRenderer {...props} />
+        </Route>
+        <Route path={Path.pixiVanilla}>
+          <VanillaPixiRenderer {...props} />
         </Route>
       </Router>
       <div className="log">{log}</div>

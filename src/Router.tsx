@@ -5,6 +5,7 @@ export enum Path {
   div,
   pixi,
   pixiFiber,
+  pixiVanilla,
   konva,
   svg,
 }

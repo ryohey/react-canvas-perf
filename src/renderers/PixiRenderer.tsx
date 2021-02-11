@@ -2,7 +2,6 @@ import { Stage, Sprite, Text, Container } from "@inlet/react-pixi"
 import React, { FC, useCallback } from "react"
 import { ItemProps, ItemRenderer } from "./renderer"
 import image from "../item.png"
-import { Item } from "../data/data"
 import { Points } from "../data/types"
 
 const ItemSprite: FC<ItemProps> = ({ item, onClick, hideText }) => {
