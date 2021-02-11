@@ -1,16 +1,12 @@
 import { Points } from "../data/types"
-import { ItemRenderer } from "./renderer"
+import { ItemProps, ItemRenderer } from "./renderer"
 import image from "../car.png"
 import { Item } from "../data/data"
 import { FC, useCallback } from "react"
 
-const DivItem: FC<{ item: Item; onClick: (item: Item) => void }> = ({
-  item,
-  onClick,
-}) => {
+const DivItem: FC<ItemProps> = ({ item, onClick, hideText }) => {
   return (
     <div
-      key={item.id}
       style={{
         position: "absolute",
         left: item.position.x,
@@ -20,7 +16,7 @@ const DivItem: FC<{ item: Item; onClick: (item: Item) => void }> = ({
       onClick={useCallback(() => onClick(item), [item])}
     >
       <img src={image} width="30" draggable={false} />
-      <div style={{ color: "white" }}>{item.id}</div>
+      {!hideText && <div style={{ color: "white" }}>{item.id}</div>}
     </div>
   )
 }
@@ -30,6 +26,7 @@ export const DivRenderer: ItemRenderer = ({
   width,
   height,
   onClick,
+  hideText,
 }) => {
   return (
     <div
@@ -43,7 +40,12 @@ export const DivRenderer: ItemRenderer = ({
       }}
     >
       {items.map((item) => (
-        <DivItem item={item} onClick={onClick} />
+        <DivItem
+          item={item}
+          onClick={onClick}
+          key={item.id}
+          hideText={hideText}
+        />
       ))}
     </div>
   )

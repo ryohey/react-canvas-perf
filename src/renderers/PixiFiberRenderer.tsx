@@ -1,9 +1,10 @@
-import { Stage, Sprite, Text, Container } from "@inlet/react-pixi"
 import React, { FC, useCallback } from "react"
 import { ItemProps, ItemRenderer } from "./renderer"
 import image from "../car.png"
 import { Item } from "../data/data"
 import { Points } from "../data/types"
+import { Container, Sprite, Stage, Text } from "react-pixi-fiber"
+import { Texture } from "pixi.js"
 
 const ItemSprite: FC<ItemProps> = ({ item, onClick, hideText }) => {
   return (
@@ -13,7 +14,7 @@ const ItemSprite: FC<ItemProps> = ({ item, onClick, hideText }) => {
       click={useCallback(() => onClick(item), [item])}
       interactive={true}
     >
-      <Sprite image={image} width={30} height={30} />
+      <Sprite texture={Texture.from(image)} width={30} height={30} />
       {!hideText && (
         <Text
           text={item.id}
@@ -26,18 +27,14 @@ const ItemSprite: FC<ItemProps> = ({ item, onClick, hideText }) => {
   )
 }
 
-export const PixiRenderer: ItemRenderer = ({
+export const PixiFiberRenderer: ItemRenderer = ({
   width,
   height,
   items,
   onClick,
   hideText,
 }) => (
-  <Stage
-    width={width}
-    height={height}
-    options={{ antialias: true, autoDensity: true }}
-  >
+  <Stage options={{ width, height, antialias: true, autoDensity: true }}>
     {items.map((item) => (
       <ItemSprite
         item={item}

@@ -6,12 +6,14 @@ import { ItemRendererProps } from "./renderers/renderer"
 import { PixiRenderer } from "./renderers/PixiRenderer"
 import { Path, Route, Router } from "./Router"
 import "./App.css"
+import { PixiFiberRenderer } from "./renderers/PixiFiberRenderer"
 
 function App() {
   const [items, setItems] = useState<Item[]>([])
   const [count, setCount] = useState(100)
   const [path, setPath] = useState(Path.index)
   const [log, setLog] = useState("")
+  const [hideText, setHideText] = useState(false)
 
   useEffect(() => {
     setItems(generateItems(count))
@@ -26,6 +28,7 @@ function App() {
     width: 320,
     height: 320,
     items,
+    hideText,
     onClick: (item) =>
       setLog(`${new Date().toLocaleTimeString()}: click ${item.id}`),
   }
@@ -40,7 +43,8 @@ function App() {
         >
           <option value={Path.index}>Home</option>
           <option value={Path.div}>Div Renderer</option>
-          <option value={Path.pixi}>PIXI Renderer</option>
+          <option value={Path.pixi}>@inlet/react-pixi</option>
+          <option value={Path.pixiFiber}>react-pixi-fiber</option>
         </select>
         <select
           value={count}
@@ -52,7 +56,14 @@ function App() {
             </option>
           ))}
         </select>
-        <button>Reset</button>
+        <button onClick={() => setCount(count)}>Reset</button>
+        <label>
+          <input
+            type="checkbox"
+            onChange={(e) => setHideText(e.currentTarget.checked)}
+          />
+          Hide Text
+        </label>
       </header>
       <div className="fps">
         <FpsView top="auto" left="auto" />
@@ -66,6 +77,9 @@ function App() {
         </Route>
         <Route path={Path.pixi}>
           <PixiRenderer {...props} />
+        </Route>
+        <Route path={Path.pixiFiber}>
+          <PixiFiberRenderer {...props} />
         </Route>
       </Router>
       <div className="log">{log}</div>

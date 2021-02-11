@@ -15,6 +15,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-fps": "1.0.4",
+    "react-pixi-fiber": "1.0.0-beta.7",
     "react-scripts": "4.0.2",
     "react-spring": "9.0.0-rc.3",
     "typescript": "4.1.5",
