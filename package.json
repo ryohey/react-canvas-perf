@@ -2,6 +2,7 @@
   "name": "canvas-perf",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ryohey.github.io/react-canvas-perf/",
   "dependencies": {
     "@inlet/react-pixi": "6.0.9",
     "@testing-library/jest-dom": "5.11.9",
