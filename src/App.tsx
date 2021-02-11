@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react"
+import { DivRenderer } from "./renderers/div"
+import { generateItems, Item, updateItem } from "./data/data"
+import { FpsView } from "react-fps"
 
 function App() {
+  const [items, setItems] = useState<Item[]>(generateItems(1000))
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setItems(items.map(updateItem)), 30)
+    return () => clearTimeout(timeoutId)
+  }, [items])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DivRenderer items={items} onClick={() => {}} />
+      <FpsView />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
