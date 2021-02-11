@@ -84,7 +84,15 @@ export const VanillaPixiRenderer: ItemRenderer = ({
     }
     const pixiItems = app.stage.children.filter(isPixiItem)
     for (let pixiItem of pixiItems) {
-      pixiItem.text.visible = !hideText
+      if (hideText) {
+        if (pixiItem.text.parent) {
+          pixiItem.removeChild(pixiItem.text)
+        }
+      } else {
+        if (!pixiItem.text.parent) {
+          pixiItem.addChild(pixiItem.text)
+        }
+      }
     }
   }, [hideText])
 
